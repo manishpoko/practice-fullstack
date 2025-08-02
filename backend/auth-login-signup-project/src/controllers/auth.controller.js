@@ -44,6 +44,8 @@ export const loginUser = async(req, res) => {
                 id: user.id
             }    
         }
+        console.log('Secret used for signing:', process.env.JWT_SECRET);
+
         jwt.sign(
             payLoad,
             process.env.JWT_SECRET,
@@ -61,4 +63,9 @@ export const loginUser = async(req, res) => {
         res.status(500).json({message: "server error during login"})
     }
     
+}
+
+export const getMe = async(req, res) => {
+    //res.user was attached by the authmiddleware
+    res.status(200).json(req.user)
 }
